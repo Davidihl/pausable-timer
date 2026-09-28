@@ -11,14 +11,15 @@ export type TimerState =
   | "skipped"
   | "aborted";
 
-export type TimerEvent =
+export type TimerAction =
   | "start"
   | "pause"
   | "resume"
-  | "complete"
   | "skip"
   | "abort"
-  | "tick";
+  | "complete";
+
+export type TimerEvent = TimerAction | "tick";
 
 export type Timer = {
   start: () => void;

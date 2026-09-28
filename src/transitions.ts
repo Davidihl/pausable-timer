@@ -1,4 +1,4 @@
-import type { TimerEvent, TimerState } from "./types/index.ts";
+import type { TimerAction, TimerEvent, TimerState } from "./types/index.ts";
 
 const transitions: Record<
   TimerState,
@@ -27,7 +27,7 @@ const transitions: Record<
   aborted: {},
 };
 
-export function transition(event: TimerEvent, currentState: TimerState) {
+export function transition(event: TimerAction, currentState: TimerState) {
   const nextState = transitions[currentState][event];
 
   if (!nextState) {
