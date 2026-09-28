@@ -60,6 +60,21 @@ timer.skip();
 timer.abort();
 ```
 
+### Reading the state
+
+`getState()` returns the current state: `idle`, `running`, `paused`, `completed`, `skipped` or `aborted`. See [States](#states) for the allowed transitions.
+
+```ts
+const timer = createTimer({ duration: 5000 });
+timer.getState(); // "idle"
+
+timer.start();
+timer.getState(); // "running"
+
+timer.pause();
+timer.getState(); // "paused"
+```
+
 ### Listening to lifecycle events
 
 Every action emits an event of the same name after the state has changed:
@@ -113,6 +128,7 @@ Returns a `Timer`:
 | `abort()`            | Ends the timer immediately; remaining is kept.       |
 | `on(type, listener)` | Adds a listener and returns an unsubscribe function. |
 | `getRemaining()`     | Remaining time in milliseconds.                      |
+| `getState()`         | Current state (see [States](#states)).               |
 | `config`             | The config the timer was created with.               |
 
 ### Events
@@ -125,7 +141,9 @@ Returns a `Timer`:
 | `resume`   | -                       | After `resume()`.                                           |
 | `skip`     | -                       | After `skip()`.                                             |
 | `abort`    | -                       | After `abort()`.                                            |
-| `complete` | -                       | When the duration### States                                 |
+| `complete` | -                       | When the duration ends.                                     |
+
+### States
 
 Allowed transitions, from the current state (rows) by action (columns):
 
@@ -138,6 +156,4 @@ Allowed transitions, from the current state (rows) by action (columns):
 | `skipped`     | -         | -         | -          | -         | -         | -             |
 | `aborted`     | -         | -         | -          | -         | -         | -             |
 
-- means not allowed: the call throws and no event is emitted. `completed`, `skipped` and `aborted` are final.
-
-An action that isn't allowed in the current state (e.g. `pause()` while `idle`) throws, and no event is emitted.
+`-` means not allowed: the call throws (e.g. `pause()` while `idle`) and no event is emitted. `completed`, `skipped` and `aborted` are final.

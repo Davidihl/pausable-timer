@@ -137,4 +137,34 @@ describe("createTimer", () => {
     advance(1500);
     assert.deepEqual(remaining, [1000, 0]);
   });
+
+  it("reports the state through the lifecycle", () => {
+    const timer = createTimer({ duration: 1000 });
+    assert.equal(timer.getState(), "idle");
+
+    assert.throws(() => timer.pause());
+    assert.equal(timer.getState(), "idle");
+
+    timer.start();
+    assert.equal(timer.getState(), "running");
+    advance(300);
+    timer.pause();
+    assert.equal(timer.getState(), "paused");
+    timer.resume();
+    assert.equal(timer.getState(), "running");
+    advance(700);
+    assert.equal(timer.getState(), "completed");
+  });
+
+  for (const [action, state] of [
+    ["skip", "skipped"],
+    ["abort", "aborted"],
+  ] as const) {
+    it(`is ${state} after ${action}`, () => {
+      const timer = createTimer({ duration: 1000 });
+      timer.start();
+      timer[action]();
+      assert.equal(timer.getState(), state);
+    });
+  }
 });
