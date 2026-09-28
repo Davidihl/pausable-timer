@@ -112,6 +112,10 @@ export default function createTimer(config: TimerConfig): Timer {
     emit("abort", undefined);
   };
 
+  const getState = () => {
+    return _state;
+  };
+
   const on = <K extends TimerEvent>(type: K, listener: TimerListener<K>) => {
     let listeners = _listeners.get(type);
     if (!listeners) {
@@ -128,5 +132,15 @@ export default function createTimer(config: TimerConfig): Timer {
     };
   };
 
-  return { start, resume, pause, skip, abort, on, getRemaining, config };
+  return {
+    start,
+    resume,
+    pause,
+    skip,
+    abort,
+    on,
+    getRemaining,
+    getState,
+    config,
+  };
 }

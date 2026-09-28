@@ -44,4 +44,5 @@ export type Timer = {
   on: <K extends TimerEvent>(type: K, listener: TimerListener<K>) => () => void;
   config: TimerConfig;
   getRemaining: () => number;
+  getState: () => TimerState;
 };
