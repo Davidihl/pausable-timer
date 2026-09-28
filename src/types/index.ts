@@ -19,7 +19,21 @@ export type TimerAction =
   | "abort"
   | "complete";
 
-export type TimerEvent = TimerAction | "tick";
+export type TimerEventMap = {
+  start: void;
+  pause: void;
+  resume: void;
+  skip: void;
+  abort: void;
+  complete: void;
+  tick: { remaining: number };
+};
+
+export type TimerEvent = keyof TimerEventMap;
+
+export type TimerListener<K extends TimerEvent> = (
+  payload: TimerEventMap[K],
+) => void;
 
 export type Timer = {
   start: () => void;
@@ -27,7 +41,7 @@ export type Timer = {
   resume: () => void;
   skip: () => void;
   abort: () => void;
-  on: (event: TimerEvent) => void;
+  on: <K extends TimerEvent>(type: K, listener: TimerListener<K>) => () => void;
   config: TimerConfig;
   getRemaining: () => number;
 };
