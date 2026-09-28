@@ -9,7 +9,7 @@ A `setTimeout` that can be paused, resumed, skipped and aborted, with typed even
 ## Install
 
 ```sh
-npm install pausable-timer
+npm install @davidihl/pausable-timer
 ```
 
 Requires Node.js 18 or later.
@@ -17,7 +17,7 @@ Requires Node.js 18 or later.
 ## Usage
 
 ```ts
-import { createTimer } from "pausable-timer";
+import { createTimer } from "@davidihl/pausable-timer";
 
 const timer = createTimer({ duration: 10_000, interval: 1000 });
 
