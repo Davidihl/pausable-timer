@@ -1,5 +1,7 @@
 # Pausable Timer for nodejs
 
+[![CI](https://github.com/Davidihl/pausable-timer/actions/workflows/ci.yml/badge.svg)](https://github.com/Davidihl/pausable-timer/actions/workflows/ci.yml)
+
 A `setTimeout` that can be paused, resumed, skipped and aborted, with typed events and optional ticks.
 
 - Measures remaining time against the clock (`performance.now()`), so the countdown doesn't drift.
