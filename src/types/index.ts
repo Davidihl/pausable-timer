@@ -27,6 +27,6 @@ export type Timer = {
   skip: () => void;
   abort: () => void;
   on: (event: TimerEvent) => void;
-  duration: number;
+  config: TimerConfig;
   getRemaining: () => number;
 };

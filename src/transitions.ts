@@ -1,4 +1,4 @@
-import type { TimerEvent, TimerState } from "./timer.type.ts";
+import type { TimerEvent, TimerState } from "./types/index.ts";
 
 const transitions: Record<
   TimerState,
