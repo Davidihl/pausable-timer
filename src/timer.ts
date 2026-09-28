@@ -50,7 +50,6 @@ export default function createTimer(config: TimerConfig): Timer {
 
   const onTick = () => {
     _tickHandle = undefined;
-
     scheduleTick();
     emit("tick", { remaining: getRemaining() });
   };
